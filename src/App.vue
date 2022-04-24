@@ -1,26 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-link v-for="item in filterRouter" :key="item.name" :to="item.path">{{ item.name }} / </router-link>
+  <router-view />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+const routers = useRouter()
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const filterRouter = computed(() => {
+  return routers.options.routes.filter((item) => item.name)
+})
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>
